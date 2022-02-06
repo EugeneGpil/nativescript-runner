@@ -1,5 +1,5 @@
 <template>
-  <Page actionBarHidden="true">
+  <Page actionBarHidden="true" @doubletap="hideMenu">
     <GridLayout>
       <Label class="info">
         <FormattedString>
@@ -13,7 +13,7 @@
 
 <script lang="ts">
 import Vue from "nativescript-vue"
-import * as app from '@nativescript/core/application'
+import application from '~/objects/application'
 
 export default Vue.extend({
   computed: {
@@ -22,11 +22,14 @@ export default Vue.extend({
     },
   },
 
+  methods: {
+    hideMenu() {
+      //...
+    },
+  },
+
   mounted(): void {
-    const application = app.android
-    const activity = application.startActivity
-    const win = activity.getWindow()
-    win.addFlags(android.view.WindowManager.LayoutParams.FLAG_FULLSCREEN)
+    application.hideStatusbar()
   }
 })
 </script>
