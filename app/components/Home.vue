@@ -12,15 +12,23 @@
 </template>
 
 <script lang="ts">
-import Vue from "nativescript-vue";
+import Vue from "nativescript-vue"
+import * as app from '@nativescript/core/application'
 
 export default Vue.extend({
   computed: {
-    message() {
-      return "Blank {N}-Vue app";
-    }
+    message(): String {
+      return "Blank {N}-Vue app"
+    },
+  },
+
+  mounted(): void {
+    const application = app.android
+    const activity = application.startActivity
+    const win = activity.getWindow()
+    win.addFlags(android.view.WindowManager.LayoutParams.FLAG_FULLSCREEN)
   }
-});
+})
 </script>
 
 <style scoped lang="scss">
