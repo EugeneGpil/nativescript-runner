@@ -1,5 +1,6 @@
 <template>
   <Page actionBarHidden="true">
+    <!--    <AbsoluteLayout class="field" @loaded="getSizes">-->
     <AbsoluteLayout class="field">
       <Label class="info" @loaded="startTheRocket">
         <Span class="fas" text.decode="&#xf135; "/>
@@ -9,12 +10,15 @@
 </template>
 
 <script lang="ts">
-import ArgsInterface from '~/classes/main/args/args/ArgsInterface'
-import ArgsObjectInterface from '~/classes/main/args/argsObject/ArgsObjectInterface'
 
 import Vue from "nativescript-vue"
 import {android as androidApp} from '@nativescript/core/application'
 import {device} from '@nativescript/core/platform'
+import SubjectLoadedDataInterface from '~/classes/subjects/subjectLoaded/subjectLoadedData/SubjectLoadedDataInterface'
+import PlayerInterface from '~/classes/subjects/player/player/PlayerInterface'
+import PlayerFactory from '~/classes/subjects/player/player/PlayerFactory'
+import PlayerToInitDataInterface from '~/classes/subjects/player/playerToInitData/PlayerToInitDataInterface'
+import DomInterface from '~/classes/nativescript/dom/dom/DomInterface'
 
 declare var android: any;
 
@@ -33,14 +37,21 @@ export default Vue.extend({
   },
 
   methods: {
-    startTheRocket(args: ArgsInterface) {
-      const rocket: ArgsObjectInterface = args.object
-      rocket.top = 30;
-      rocket.left = 0;
+    startTheRocket(args: SubjectLoadedDataInterface): void {
+      const player: PlayerInterface = PlayerFactory(
+          {top: 50, left: 50} as PlayerToInitDataInterface,
+          args.object as DomInterface
+      )
       setInterval(() => {
-        rocket.left = rocket.left + 1
-      }, 100)
-    }
+        player.goToRight(1)
+      }, 33)
+    },
+
+    // getSizes(args: ArgsInterface): void {
+    //   const field: ArgsObjectInterface = args.object
+    //   console.log(field.getActualSize())
+    //   console.log(field.width)
+    // }
   }
 })
 </script>
