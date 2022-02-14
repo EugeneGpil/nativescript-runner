@@ -1,17 +1,17 @@
 <template>
   <Page actionBarHidden="true">
-    <GridLayout>
-      <Label class="info">
-        <FormattedString>
-          <Span class="fas" text.decode="&#xf135; "/>
-          <Span>{{ message }}</Span>
-        </FormattedString>
+    <AbsoluteLayout class="field">
+      <Label class="info" @loaded="startTheRocket">
+        <Span class="fas" text.decode="&#xf135; "/>
       </Label>
-    </GridLayout>
+    </AbsoluteLayout>
   </Page>
 </template>
 
 <script lang="ts">
+import ArgsInterface from '~/classes/main/args/args/ArgsInterface'
+import ArgsObjectInterface from '~/classes/main/args/argsObject/ArgsObjectInterface'
+
 import Vue from "nativescript-vue"
 import {android as androidApp} from '@nativescript/core/application'
 import {device} from '@nativescript/core/platform'
@@ -19,12 +19,6 @@ import {device} from '@nativescript/core/platform'
 declare var android: any;
 
 export default Vue.extend({
-  computed: {
-    message(): String {
-      return "Blank {N}-Vue app"
-    },
-  },
-
   mounted(): void {
     if (androidApp && device.sdkVersion >= '21') {
       const View = android.view.View
@@ -37,6 +31,17 @@ export default Vue.extend({
       )
     }
   },
+
+  methods: {
+    startTheRocket(args: ArgsInterface) {
+      const rocket: ArgsObjectInterface = args.object
+      rocket.top = 30;
+      rocket.left = 0;
+      setInterval(() => {
+        rocket.left = rocket.left + 1
+      }, 100)
+    }
+  }
 })
 </script>
 
@@ -52,5 +57,13 @@ export default Vue.extend({
   font-size: 20;
   horizontal-align: center;
   vertical-align: center;
+  background-color: black;
+  width: 25;
+  position: absolute;
+}
+
+.field {
+  background-color: yellow;
+  position: relative;
 }
 </style>
