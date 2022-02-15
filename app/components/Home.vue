@@ -12,38 +12,32 @@
 <script lang="ts">
 
 import Vue from "nativescript-vue"
-import {android as androidApp} from '@nativescript/core/application'
-import {device} from '@nativescript/core/platform'
 import SubjectLoadedDataInterface from '~/classes/subjects/subjectLoaded/subjectLoadedData/SubjectLoadedDataInterface'
 import PlayerInterface from '~/classes/subjects/player/player/PlayerInterface'
-import PlayerFactory from '~/classes/subjects/player/player/PlayerFactory'
+import playerFactory from '~/classes/subjects/player/player/playerFactory'
 import PlayerToInitDataInterface from '~/classes/subjects/player/playerToInitData/PlayerToInitDataInterface'
 import DomInterface from '~/classes/nativescript/dom/dom/DomInterface'
+import systemFactory from "~/classes/system/system/systemFactory"
+import SystemInterface from "~/classes/system/system/SystemInterface"
 
 declare var android: any;
 
 export default Vue.extend({
-  mounted(): void {
-    if (androidApp && device.sdkVersion >= '21') {
-      const View = android.view.View
-      const window = androidApp.startActivity.getWindow()
-      const decorView = window.getDecorView()
-      decorView.setSystemUiVisibility(
-          View.SYSTEM_UI_FLAG_HIDE_NAVIGATION |
-          View.SYSTEM_UI_FLAG_FULLSCREEN |
-          View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
-      )
+  data() {
+    return {
+      system: null as unknown as SystemInterface,
+      player: null as unknown as PlayerInterface,
     }
   },
 
   methods: {
     startTheRocket(args: SubjectLoadedDataInterface): void {
-      const player: PlayerInterface = PlayerFactory(
+      this.player = playerFactory(
           {top: 50, left: 50} as PlayerToInitDataInterface,
           args.object as DomInterface
       )
       setInterval(() => {
-        player.goToRight(1)
+        this.player.goToRight(1)
       }, 33)
     },
 
@@ -52,7 +46,12 @@ export default Vue.extend({
     //   console.log(field.getActualSize())
     //   console.log(field.width)
     // }
-  }
+  },
+
+  mounted(): void {
+    this.system = systemFactory()
+    this.system.goFullScreen()
+  },
 })
 </script>
 
