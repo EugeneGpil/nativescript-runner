@@ -33,7 +33,7 @@ export default Vue.extend({
   methods: {
     startTheRocket(args: SubjectLoadedDataInterface): void {
       this.player = playerFactory(
-          {top: 50, left: 50} as PlayerToInitDataInterface,
+          {top: 360, left: 50} as PlayerToInitDataInterface,
           args.object as DomInterface
       )
       setInterval(() => {
