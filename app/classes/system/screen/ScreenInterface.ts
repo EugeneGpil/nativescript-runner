@@ -2,4 +2,6 @@ import CoordinatesInterface from '~/classes/essential/coordinates/CoordinatesInt
 
 export default interface ScreenInterface {
   getModeratedCoordinates(coordinates: CoordinatesInterface): CoordinatesInterface
+  getModeratedLeft(left: number): number
+  getModeratedTop(top: number): number
 }
