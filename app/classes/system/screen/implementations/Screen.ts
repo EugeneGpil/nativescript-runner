@@ -4,8 +4,8 @@ export default class Screen {
   private readonly height: number
   private readonly width: number
 
-  private UNIVERSAL_HEIGHT = 1000
-  private UNIVERSAL_WIDTH = 2000
+  private readonly UNIVERSAL_HEIGHT = 1000
+  private readonly UNIVERSAL_WIDTH = 2000
 
   public constructor(height: number, width: number) {
     this.height = height
@@ -24,5 +24,13 @@ export default class Screen {
 
   public getModeratedTop(top: number): number {
     return top / this.UNIVERSAL_HEIGHT * this.height
+  }
+
+  public getUniversalWidth(): number {
+    return this.UNIVERSAL_WIDTH
+  }
+
+  public getUniversalHeight(): number {
+    return this.UNIVERSAL_HEIGHT
   }
 }

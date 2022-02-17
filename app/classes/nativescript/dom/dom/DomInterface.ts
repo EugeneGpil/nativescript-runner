@@ -1,3 +1,5 @@
+import onPanCallbackType from '~/classes/nativescript/dom/pan/onPanCallbackType'
+
 export default interface DomInterface {
   top: number
   left: number
@@ -7,4 +9,6 @@ export default interface DomInterface {
   backgroundPosition: string
   backgroundRepeat: string
   backgroundSize: string
+
+  on(en: number, callback: onPanCallbackType): void
 }

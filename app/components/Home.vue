@@ -22,8 +22,6 @@ import SystemInterface from "~/classes/system/system/SystemInterface"
 import fieldFactory from '~/classes/subjects/field/field/fieldFactory'
 import FieldInterface from '~/classes/subjects/field/field/FieldInterface'
 
-declare var android: any;
-
 export default Vue.extend({
   data() {
     return {
@@ -45,7 +43,7 @@ export default Vue.extend({
     },
 
     initField(args: SubjectLoadedDataInterface): void {
-      this.field = fieldFactory(args.object as DomInterface)
+      this.field = fieldFactory(args.object as DomInterface);
     },
   },
 
